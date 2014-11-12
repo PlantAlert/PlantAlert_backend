@@ -1,0 +1,19 @@
+{
+  "name": "PlantAlert",
+  "version": "0.1.0",
+  "description": "An app that keeps plants alive.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sburbidg/PlantAlert.git"
+  },
+  "author": "Scott Burbidge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sburbidg/PlantAlert/issues"
+  },
+  "homepage": "https://github.com/sburbidg/PlantAlert"
+}
