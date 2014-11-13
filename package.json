@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/sburbidg/PlantAlert.git"
   },
-  "author": "Scott Burbidge",
+  "author": "Scott Burbidge","Christian Townsdin",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/sburbidg/PlantAlert/issues"
