@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res) {
 
-  var openWeatherMapURL = 'api.openweathermap.org/data/2.5/forecast/daily?q=Seattle,wa&cnt=3&units=imperial&APIID=da612e4e7770055bad2a709b73e89893&mode=json'
+  var openWeatherMapURL = 'api.openweathermap.org/data/2.5/forecast/daily?q=Seattle,wa&cnt=3&units=imperial&APIID=APIKEYHERE&mode=json'
 
   request
     .get(openWeatherMapURL)
