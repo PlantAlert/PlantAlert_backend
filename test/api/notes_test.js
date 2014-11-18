@@ -46,51 +46,7 @@ describe('user password tests', function() {
     .send({email: 'test2@example.com', password: 'testtestT$'})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.msg).to.eql('password must contain at least one number');
-      done();
-    });
-  });
-
-  it('should not let a user have a password without a lower case letter', function(done) {
-    chai.request('http://localhost:3000')
-    .post('/api/users')
-    .send({email: 'test3@example.com', password: 'TESTTEST1%'})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.msg).to.eql('password must contain at least one lower case letter');
-      done();
-    });
-  });
-
-  it('should not let a user have a password without an upper case letter', function(done) {
-    chai.request('http://localhost:3000')
-    .post('/api/users')
-    .send({email: 'test4@example.com', password: 'testtest1%'})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.msg).to.eql('password must contain at least one upper case letter');
-      done();
-    });
-  });
-
-  it('should not let a user have a password without a special character', function(done) {
-    chai.request('http://localhost:3000')
-    .post('/api/users')
-    .send({email: 'test5@example.com', password: 'testtestT1'})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.msg).to.eql('password must contain at least one special character');
-      done();
-    });
-  });
-
-  it('should not let a user have a password less than 8 characters long', function(done) {
-    chai.request('http://localhost:3000')
-    .post('/api/users')
-    .send({email: 'test6@example.com', password: 'tE$t1'})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.msg).to.eql('password must be at least 8 characters long');
+      expect(res.text).to.eql('invalid password');
       done();
     });
   });
