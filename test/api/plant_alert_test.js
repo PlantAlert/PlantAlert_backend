@@ -102,7 +102,7 @@ describe('cities and users crud', function() {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
-    .send({city: 'Seattle,wa'})
+    .send({cityName: 'Seattle,wa'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       console.log(res.status);

@@ -12,11 +12,11 @@ module.exports = function(app) {
   });
 
   app.post('/api/addcity', function(req, res) {
-    var cityToAdd = req.body.city;
+    var cityToAdd;
     var user = req.user;
 
 //start bug fixing here: even an empty object will return truthy. cityCheck will always return truthy. We need something that will return false if there are no cities found in the database that match the inputed city name.
-    var cityCheck = City.find().where({cityName: cityToAdd});
+    // var cityCheck = City.find().where({cityName: cityToAdd});
 // return res.send(typeof cityCheck);
 
 
@@ -51,15 +51,18 @@ module.exports = function(app) {
 
   //   else {
 
-      var city = new City(req.body.city);
+      var city = new City(cityToAdd);
+      city.cityName = cityToAdd;
+      city.users.push(user._id);
       city.save(function(err, data) {
         if (err) {
           return res.status(500).send('there was an error');
         }
         else {
-        city.cityName = req.body.city;
-        city.users.push(user._id);
-        return res.status(200).send('Added new city ' + city.cityName + '; added ' + user.email + ' to city.');
+
+
+        return res.status(200).json(data);
+        // return res.status(200).send('Added new city ' + city.cityName + '; added ' + user.email + ' to city.');
         }
       });
   //   }
