@@ -22,7 +22,7 @@ citysRouter.use(jwtauth);
 
 require('./routes/users_routes')(app, passport);
 require('./routes/citys_routes')(citysRouter);
-// app.use('/v1', notesRouter);
+app.use('/v1', citysRouter);
 
 app.set('port', process.env.PORT || 3000);
 

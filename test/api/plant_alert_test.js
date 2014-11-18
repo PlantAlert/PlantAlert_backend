@@ -53,7 +53,7 @@ describe('user password tests', function() {
 });
 
 
-describe('basic notes crud', function() {
+describe('cities and users crud', function() {
   var id;
   var jwtToken;
 
@@ -67,17 +67,45 @@ describe('basic notes crud', function() {
     });
   });
 
+  it('will not return a 404 on the city routes', function(done) {
+    chai.request('http://localhost:3000')
+    .get('/v1/api/citys')
+    .set({'jwt': jwtToken})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      console.log(res.status);
+      console.log(res.text);
+      expect(res.body.msg).to.eql('hello from the get route');
+      done();
+    });
+  });
+
+  // it('should at least say hi to me on the post route', function(done) {
+  //   this.timeout(5000);
+  //   chai.request('http://localhost:3000')
+  //   .post('/v1/api/addcity')
+  //   .set({'jwt': jwtToken})
+  //   .send({city: 'Seattle,wa'})
+  //   .end(function(err, res) {
+  //     expect(err).to.eql(null);
+  //     console.log(res.status);
+  //     console.log(res.text);
+  //     // expect(res.body).to.have.property('_id')
+  //     // id = res.body._id;
+  //     expect(res.text).to.eql('hi');
+  //     done();
+  //   });
+  // });
+
   it('should add a new city, then add the user to that new city', function(done) {
     this.timeout(5000);
     chai.request('http://localhost:3000')
-    .post('/api/addcity')
+    .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
     .send({city: 'Seattle,wa'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       console.log(res.status);
-      // expect(res.body).to.have.property('_id')
-      // id = res.body._id;
       expect(res.text).to.eql('Added test7@example.com to Seattle,wa.');
       done();
     });
@@ -86,7 +114,7 @@ describe('basic notes crud', function() {
   it('should add a user to an existing city', function(done) {
     this.timeout(5000);
     chai.request('http://localhost:3000')
-    .post('/api/addcity')
+    .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
     .send({city: 'Seattle,wa'})
     .end(function(err, res) {
