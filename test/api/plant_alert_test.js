@@ -67,35 +67,49 @@ describe('basic notes crud', function() {
     });
   });
 
-  // console.log('after before-block, jwt is ' + jwtToken);
-
-  it('should be able to create a note', function(done) {
-    this.timeout(5000)
+  it('should add a new city, then add the user to that new city', function(done) {
+    this.timeout(5000);
     chai.request('http://localhost:3000')
-    .post('/v1/api/notes')
+    .post('/api/addcity')
     .set({'jwt': jwtToken})
-    .send({noteBody: 'hello world'})
+    .send({city: 'Seattle,wa'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      console.log(res.status);
+      // expect(res.body).to.have.property('_id')
+      // id = res.body._id;
+      expect(res.text).to.eql('Added test7@example.com to Seattle,wa.');
+      done();
+    });
+  });
+
+  it('should add a user to an existing city', function(done) {
+    this.timeout(5000);
+    chai.request('http://localhost:3000')
+    .post('/api/addcity')
+    .set({'jwt': jwtToken})
+    .send({city: 'Seattle,wa'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       // console.log(res.body);
-      expect(res.body).to.have.property('_id')
-      id = res.body._id;
-      expect(res.body.noteBody).to.eql('hello world');
+      // expect(res.body).to.have.property('_id')
+      // id = res.body._id;
+      expect(res.text).to.eql('Added new city Seattle,wa; added test7@example.com to city.');
       done();
     });
   });
 
     // console.log('JWT in get index ' + jwtToken)
-  it('should be able to get an index', function(done) {
-    chai.request('http://localhost:3000')
-    .get('/v1/api/notes')
-    .set({jwt: jwtToken})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(Array.isArray(res.body)).to.be.true;
-      done();
-    });
-  });
+  // it('should be able to get an index', function(done) {
+  //   chai.request('http://localhost:3000')
+  //   .get('/v1/api/notes')
+  //   .set({jwt: jwtToken})
+  //   .end(function(err, res) {
+  //     expect(err).to.eql(null);
+  //     expect(Array.isArray(res.body)).to.be.true;
+  //     done();
+  //   });
+  // });
 
   it('should be able to get a single note', function(done) {
     chai.request('http://localhost:3000')
@@ -120,14 +134,4 @@ describe('basic notes crud', function() {
     });
   });
 
-  it('should be able to destroy a note', function(done) {
-    chai.request('http://localhost:3000')
-    .delete('/v1/api/notes/' + id)
-    .set({jwt: jwtToken})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.msg).to.eql('success!');
-      done();
-    });
-  });
 });
