@@ -27,3 +27,5 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['jshint', 'mongo_drop', 'simplemocha']);
   grunt.registerTask('default', ['test']);
 };
+
+  // grunt.registerTask('test', ['jshint', 'mongo_drop', 'simplemocha']);

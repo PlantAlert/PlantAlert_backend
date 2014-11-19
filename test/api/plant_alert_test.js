@@ -27,16 +27,6 @@ describe('user functionality', function() {
       done();
     });
   });
-
-//   // it('should not allow a logged-in user access after 24 hours', function(done) {
-//   //   chai.request('http://localhost:3000')
-//   //   .get('/api/notes')
-//   //   .end(function(err, res) {
-//   //     expect(err).to.eql(null);
-//   //     expect(res.body.msg).to.eql('Session expired. Please log in again.');
-//   //     done();
-//   //   });
-//   // });
 });
 
 describe('user password tests', function() {
@@ -53,7 +43,7 @@ describe('user password tests', function() {
 });
 
 
-describe('cities and users crud', function() {
+describe('add a new city', function() {
   var id;
   var jwtToken;
 
@@ -67,36 +57,6 @@ describe('cities and users crud', function() {
     });
   });
 
-  it('will not return a 404 on the city routes', function(done) {
-    chai.request('http://localhost:3000')
-    .get('/v1/api/citys')
-    .set({'jwt': jwtToken})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      console.log(res.status);
-      console.log(res.text);
-      expect(res.body.msg).to.eql('hello from the get route');
-      done();
-    });
-  });
-
-  // it('should at least say hi to me on the post route', function(done) {
-  //   this.timeout(5000);
-  //   chai.request('http://localhost:3000')
-  //   .post('/v1/api/addcity')
-  //   .set({'jwt': jwtToken})
-  //   .send({city: 'Seattle,wa'})
-  //   .end(function(err, res) {
-  //     expect(err).to.eql(null);
-  //     console.log(res.status);
-  //     console.log(res.text);
-  //     // expect(res.body).to.have.property('_id')
-  //     // id = res.body._id;
-  //     expect(res.text).to.eql('hi');
-  //     done();
-  //   });
-  // });
-
   it('should add a new city, then add the user to that new city', function(done) {
     this.timeout(5000);
     chai.request('http://localhost:3000')
@@ -106,7 +66,25 @@ describe('cities and users crud', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       console.log(res.status);
-      expect(res.text).to.eql('Added test7@example.com to Seattle,wa.');
+      console.log(res.body);
+      expect(res.body).to.have.property('_id');
+      expect(res.body).to.have.property('cityName');
+      expect(res.body.users).to.not.eql([]);
+      done();
+    });
+  });
+});
+
+describe('add a user to an existing city', function() {
+  var id;
+  var jwtToken;
+
+  before(function (done) {
+    chai.request('http://localhost:3000')
+    .post('/api/users')
+    .send({email: 'test8@example.com', password: 'Password123#'})
+    .end(function (err, res) {
+      jwtToken = res.body.jwt;
       done();
     });
   });
@@ -118,48 +96,11 @@ describe('cities and users crud', function() {
     .set({'jwt': jwtToken})
     .send({city: 'Seattle,wa'})
     .end(function(err, res) {
+      console.log(res.status);
+      console.log(res.body);
       expect(err).to.eql(null);
-      // console.log(res.body);
-      // expect(res.body).to.have.property('_id')
-      // id = res.body._id;
-      expect(res.text).to.eql('Added new city Seattle,wa; added test7@example.com to city.');
+      expect(res.body.users).to.eql('Added new city Seattle,wa; added test8@example.com to city.');
       done();
     });
   });
-
-    // console.log('JWT in get index ' + jwtToken)
-  // it('should be able to get an index', function(done) {
-  //   chai.request('http://localhost:3000')
-  //   .get('/v1/api/notes')
-  //   .set({jwt: jwtToken})
-  //   .end(function(err, res) {
-  //     expect(err).to.eql(null);
-  //     expect(Array.isArray(res.body)).to.be.true;
-  //     done();
-  //   });
-  // });
-
-  it('should be able to get a single note', function(done) {
-    chai.request('http://localhost:3000')
-    .get('/v1/api/notes/' + id)
-    .set({jwt: jwtToken})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.noteBody).to.eql('hello world');
-      done();
-    });
-  });
-
-  it('should be able to update a note', function(done) {
-    chai.request('http://localhost:3000')
-    .put('/v1/api/notes/' + id)
-    .set({jwt: jwtToken})
-    .send({noteBody: 'new note body'})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.body.noteBody).to.eql('new note body');
-      done();
-    });
-  });
-
 });

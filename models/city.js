@@ -13,6 +13,6 @@ var citySchema = mongoose.Schema({
 //add method to city object
 //this sends a single notification to single id
 // findOne to get city object. Has a callback that contains city object. That has devices in it.
-//another function that
+
 
 module.exports = mongoose.model('City', citySchema);
