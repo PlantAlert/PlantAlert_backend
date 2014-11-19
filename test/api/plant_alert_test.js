@@ -14,7 +14,6 @@ require('../../server');
 var expect = chai.expect;
 
 describe('user crud', function() {
-  var id;
   var jwtToken;
   it('should be able to create a new user', function(done) {
     chai.request('http://localhost:3000')
@@ -70,11 +69,12 @@ describe('city crud', function() {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
-    .send({cityName: 'Seattle,wa'})
+    .send({cityName: 'Seattle, WA'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body).to.have.property('_id');
       expect(res.body).to.have.property('cityName');
+      expect(res.body.cityName).to.eql('Seattle,wa');   // Tests cityNameConversion.js
       expect(res.body.users).to.not.eql([]);
       done();
     });
@@ -105,20 +105,4 @@ describe('city crud', function() {
       done();
     });
   });
-
-  // it('should delete the city if there are no users associated with it', function(done) {
-  //   this.timeout(5000);
-  //   chai.request('http://localhost:3000')
-  //   .post('/v1/api/deletecity')
-  //   .set({'jwt': jwtToken})
-  //   .send({cityName: 'Seattle,wa'})
-  //   .end(function(err, res) {
-  //     expect(err).to.eql(null);
-  //     console.log(res.status);
-  //     console.log(res.body);
-  //     expect(res.body.msg).to.eql('deleted Seattle,wa');
-  //     done();
-  //   });
-  // });
-
 });
