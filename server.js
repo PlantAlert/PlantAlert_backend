@@ -26,15 +26,21 @@ require('./routes/users_routes')(app, passport);
 require('./routes/citys_routes')(citysRouter);
 app.use('/v1', citysRouter);
 
-app.set('port', process.env.PORT || 5000);
+app.set('port', process.env.PORT || 3000);
 
-var seconds15 = 1000 * 5;
-var oneDay = 1000 * 60 * 60 *12;
-setInterval(function() {
+// var seconds15 = 1000 * 10;
+// var oneDay = 1000 * 60 * 60 *12;
+// setInterval(function() {
+//   var city = new City();
+//   city.pullCities();
+//   console.log("startBatch: callback function FIRE :)!");
+// }, seconds15);
+
+(function KUH() {
   var city = new City();
   city.pullCities();
   console.log("startBatch: callback function FIRE :)!");
-}, seconds15);
+}());
 
 
 

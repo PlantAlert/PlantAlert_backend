@@ -14,11 +14,11 @@ var citySchema = mongoose.Schema({
 });
 
 citySchema.methods.pullCities = function(){
-  this.model('City').find({"cityName": "Seattle,wa"}, function (err, data) {
+  this.model('City').find({}, function (err, data) {
     if (err) return console.log('DB city get all city error.'); console.log(data);
     // var parsedData = JSON.parse(data.text);
     var cities = (data[0].cityName);
-    console.log(data[0].cityName)
+    console.log(data[0].cityName);
 
     var cityCall = [];
     data.forEach(function(city){
@@ -33,16 +33,23 @@ citySchema.methods.pullCities = function(){
           if (err) console.log('there was an error');
           tempParse = JSON.parse(cityData.text);
           temp = (tempParse.list[2].temp.night);
-          return temp;
+          console.log(temp)
+          // return temp;
+          console.log(temp)
+          if (temp <= 32){
+            cityCall.push(city.users);
+            console.log("inside      " + cityCall)
+          }
         });
-        console.log(temp)
-      if (temp <= 32){
-        cityCall.push(city.users);
-        console.log(cityCall)
-      }
+      //   console.log(temp ("1"))
+      // if (temp <= 32){
+      //   cityCall.push(city.users);
+      //   console.log(cityCall)
+      // }
 
-      return cityCall;
     });
+    console.log("outside     " + cityCall)
+      return cityCall;
   });
 };
 
