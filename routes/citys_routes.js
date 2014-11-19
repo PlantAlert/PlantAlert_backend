@@ -15,7 +15,8 @@ module.exports = function(app) {
 
       // if the city is in the collection, add the user to that city
       console.log('the city is' + city);
-      if (city !== null) {
+
+      if (city) {
         city.users.push(user._id);
         city.save(function(err, data) {
           if (err) {
@@ -23,12 +24,11 @@ module.exports = function(app) {
             return res.status(500).send('there was an error');
           }
           return res.status(202).json(data);
-            // return res.status(200).send('Added ' + user.email + ' to '+ city.cityName);
         });
       }
 
       //if the city isn't in the collection, add the city, then add user to that city
-      var newCity = new City();
+      else {var newCity = new City();
       newCity.cityName = req.body.cityName;
       newCity.users.push(user._id);
       newCity.save(function(err, data) {
@@ -37,6 +37,7 @@ module.exports = function(app) {
         }
         return res.status(200).json(data);
       });
+    }
     });
 //END VERSION 1 =====================
 

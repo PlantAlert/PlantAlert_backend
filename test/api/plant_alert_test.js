@@ -78,6 +78,7 @@ describe('add a new city', function() {
 describe('add a user to an existing city', function() {
   var id;
   var jwtToken;
+  var length = 1;
 
   before(function (done) {
     chai.request('http://localhost:3000')
@@ -94,12 +95,12 @@ describe('add a user to an existing city', function() {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
-    .send({city: 'Seattle,wa'})
+    .send({cityName: 'Seattle,wa'})
     .end(function(err, res) {
       console.log(res.status);
       console.log(res.body);
       expect(err).to.eql(null);
-      expect(res.body.users).to.eql('Added new city Seattle,wa; added test8@example.com to city.');
+      expect(res.body.users.length).to.eql(2);
       done();
     });
   });
