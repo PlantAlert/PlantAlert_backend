@@ -33,7 +33,7 @@ describe('user password tests', function() {
   it('should not let a user have a password without a number', function(done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test2@example.com', password: 'testtestT$'})
+    .send({email: 'test2@example.com', password: 'testtestT$', deviceID: 'teststringofdeviceid'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.eql('invalid password');
@@ -50,14 +50,14 @@ describe('add a new city', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test7@example.com', password: 'Password123#'})
+    .send({email: 'test7@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid'})
     .end(function (err, res) {
       jwtToken = res.body.jwt;
       done();
     });
   });
 
-  it('should add a new city, then add the user to that new city', function(done) {
+  it('should add a new city, then add the user deviceID to that new city', function(done) {
     this.timeout(5000);
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
@@ -73,13 +73,13 @@ describe('add a new city', function() {
   });
 });
 
-describe('add a user to an existing city', function() {
+describe('add a users deviceID to an existing city', function() {
   var jwtToken;
 
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test8@example.com', password: 'Password123#'})
+    .send({email: 'test8@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid2'})
     .end(function (err, res) {
       jwtToken = res.body.jwt;
       done();
@@ -94,6 +94,7 @@ describe('add a user to an existing city', function() {
     .send({cityName: 'Seattle,wa'})
     .end(function(err, res) {
       expect(err).to.eql(null);
+      console.log(res.body);
       expect(res.body.users.length).to.eql(2);
       done();
     });
