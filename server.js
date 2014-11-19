@@ -26,6 +26,14 @@ app.use('/v1', citysRouter);
 
 app.set('port', process.env.PORT || 3000);
 
+// THE TRIGGER, setInterval, WHICH FIRES dailyBatch for alerts.
+// ****************
+var seconds15 = 1000 * 15;    // use this for testing !
+var oneDay = 1000 * 60 * 60 *12;
+setInterval(function() { require('./lib/dailyBatch')(); }, seconds15);
+// ****************
+
+
 app.listen(app.get('port'), function() {
   console.log('server running on port: %d', app.get('port'));
 });
