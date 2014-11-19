@@ -44,20 +44,6 @@ describe('user password tests', function() {
   });
 });
 
-describe('existing phone number test', function(){
-  it('should not let a user submit a phone number already in database', function(done){
-    chai.request('http://localhost:3000')
-    .post('/api/users')
-    .send({email: 'test@example.com', password: 'Password123#', phone: '555-5555'})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.text).to.eql('phone number in use');
-      done();
-    });
-
-  });
-});
-
 
 describe('basic notes crud', function() {
   var id;
