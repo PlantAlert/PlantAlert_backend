@@ -2,13 +2,15 @@
 'use strict';
 
 var City = require('../models/city');
+var cityNameConversion = require('../lib/cityNameConversion');
 
 module.exports = function(app) {
 
   app.post('/api/addcity', function(req, res) {
     var user = req.user;
+    var formattedCityName = cityNameConversion(req.body.cityName);
 
-    City.findOne({'cityName': req.body.cityName}, function(err, city){
+    City.findOne({'cityName': formattedCityName}, function(err, city){
 
       // if the city is in the collection, add the user to that city
       if (city) {
@@ -25,7 +27,7 @@ module.exports = function(app) {
       //if the city isn't in the collection, add the city, then add user to that city
       else {
         var newCity = new City();
-        newCity.cityName = req.body.cityName;
+        newCity.cityName = formattedCityName;
         newCity.users.push(user.deviceID);
         newCity.save(function(err, data) {
           if (err) {
@@ -39,8 +41,9 @@ module.exports = function(app) {
 
   app.post('/api/deletecity', function(req, res) {
     var user = req.user;
+    var formattedCityName = cityNameConversion(req.body.cityName);
 
-    City.findOne({'cityName': req.body.cityName}, function(err, city){
+    City.findOne({'cityName': formattedCityName}, function(err, city){
 
       // remove the user's device ID from the city
       if (city) {
@@ -57,15 +60,6 @@ module.exports = function(app) {
           return res.status(200).json(data);
         });
       }
-
-      //if there are no more device IDs left for that city, delete that city
-      // if (city.users.length === 0) {
-        // city.remove({'cityName': req.body.cityName}, function(err) {
-        //   var deletedMsg = 'deleted ' + req.body.cityName;
-        //   if (err) return res.status(500).send('there was an error');
-        //   res.status(200).json({msg: deletedMsg});
-        // });
-      // }
     });
   });
 };
