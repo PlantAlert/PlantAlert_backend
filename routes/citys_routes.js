@@ -58,14 +58,6 @@ module.exports = function(app) {
         });
       }
 
-      //if there are no more device IDs left for that city, delete that city
-      // if (city.users.length === 0) {
-        // city.remove({'cityName': req.body.cityName}, function(err) {
-        //   var deletedMsg = 'deleted ' + req.body.cityName;
-        //   if (err) return res.status(500).send('there was an error');
-        //   res.status(200).json({msg: deletedMsg});
-        // });
-      // }
     });
   });
 };

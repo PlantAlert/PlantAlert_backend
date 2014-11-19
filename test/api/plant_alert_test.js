@@ -106,19 +106,4 @@ describe('city crud', function() {
     });
   });
 
-  // it('should delete the city if there are no users associated with it', function(done) {
-  //   this.timeout(5000);
-  //   chai.request('http://localhost:3000')
-  //   .post('/v1/api/deletecity')
-  //   .set({'jwt': jwtToken})
-  //   .send({cityName: 'Seattle,wa'})
-  //   .end(function(err, res) {
-  //     expect(err).to.eql(null);
-  //     console.log(res.status);
-  //     console.log(res.body);
-  //     expect(res.body.msg).to.eql('deleted Seattle,wa');
-  //     done();
-  //   });
-  // });
-
 });
