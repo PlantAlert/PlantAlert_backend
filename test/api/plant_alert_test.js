@@ -3,7 +3,7 @@
 
 //Many thanks to Charles Renwick for help with the testing code.
 
-process.env.MONGO_URL = 'mongodb://localhost/notes_test';
+process.env.MONGO_URL = 'mongodb://localhost/city_development';
 var chai = require('chai');
 var chaihttp = require('chai-http');
 chai.use(chaihttp);
@@ -50,7 +50,7 @@ describe('add a new city', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test7@example.com', password: 'Password123#'})
+    .send({email: 'test77@example.com', password: 'Password2123#'})
     .end(function (err, res) {
       jwtToken = res.body.jwt;
       done();
@@ -62,7 +62,7 @@ describe('add a new city', function() {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
-    .send({cityName: 'Seattle,wa'})
+    .send({cityName: 'Barrow,ak'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body).to.have.property('_id');
@@ -79,7 +79,7 @@ describe('add a user to an existing city', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test8@example.com', password: 'Password123#'})
+    .send({email: 'test88@example.com', password: 'Password2123#'})
     .end(function (err, res) {
       jwtToken = res.body.jwt;
       done();
@@ -91,7 +91,7 @@ describe('add a user to an existing city', function() {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
-    .send({cityName: 'Seattle,wa'})
+    .send({cityName: 'Barrow,ak'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.users.length).to.eql(2);

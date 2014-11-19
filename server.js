@@ -7,7 +7,9 @@ var bodyparser = require('body-parser');
 var passport = require('passport');
 var app = express();
 
-mongoose.connect(process.env.MONGO_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/plantAlert_development');
+var City = require("./models/city");
+
+mongoose.connect(process.env.MONGO_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/city_development');
 app.use(bodyparser.json());
 app.set('jwtSecret', process.env.JWT_SECRET || 'changethisoryourplantwillfreeze');
 
@@ -24,7 +26,18 @@ require('./routes/users_routes')(app, passport);
 require('./routes/citys_routes')(citysRouter);
 app.use('/v1', citysRouter);
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5000);
+
+var seconds15 = 1000 * 5;
+var oneDay = 1000 * 60 * 60 *12;
+setInterval(function() {
+  var city = new City();
+  city.pullCities();
+  console.log("startBatch: callback function FIRE :)!");
+}, seconds15);
+
+
+
 
 app.listen(app.get('port'), function() {
   console.log('server running on port: %d', app.get('port'));
