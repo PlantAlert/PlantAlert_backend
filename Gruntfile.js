@@ -16,15 +16,15 @@ module.exports = function(grunt) {
       src: ['test/api/**/*.js']
     },
 
-    // mongo_drop: {
-    //   test: {
-    //   'uri': 'mongodb://localhost/notes_test',
-    //   }
-    // }
+    mongo_drop: {
+      test: {
+      'uri': 'mongodb://localhost/city_development',
+      }
+    }
 
   });
 
-  grunt.registerTask('test', ['jshint', 'simplemocha']);
+  grunt.registerTask('test', ['jshint', 'mongo_drop', 'simplemocha']);
   grunt.registerTask('default', ['test']);
 };
 

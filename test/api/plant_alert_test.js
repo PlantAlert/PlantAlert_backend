@@ -50,11 +50,7 @@ describe('city crud', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-<<<<<<< HEAD
-    .send({email: 'test7@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid'})
-=======
-    .send({email: 'test77@example.com', password: 'Password2123#'})
->>>>>>> a0ce9d5779de22f09d94caf9fedcf358a1e476cf
+    .send({email: 'test1@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid'})
     .end(function (err, res) {
       jwtToken = res.body.jwt;
       done();
@@ -64,7 +60,7 @@ describe('city crud', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test8@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid2'})
+    .send({email: 'test2@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid2'})
     .end(function (err, res) {
       jwtToken2 = res.body.jwt;
       done();
@@ -75,7 +71,7 @@ describe('city crud', function() {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
-    .send({cityName: 'Barrow,ak'})
+    .send({cityName: 'Seattle, WA'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body).to.have.property('_id');
@@ -90,7 +86,7 @@ describe('city crud', function() {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
     .set({'jwt': jwtToken2})
-    .send({cityName: 'Seattle,wa'})
+    .send({cityName: 'Seattle, WA'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.users.length).to.eql(2);
@@ -103,41 +99,26 @@ describe('city crud', function() {
     chai.request('http://localhost:3000')
     .post('/v1/api/deletecity')
     .set({'jwt': jwtToken2})
-    .send({cityName: 'Seattle,wa'})
+    .send({cityName: 'Seattle, WA'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.users.length).to.eql(1);
       done();
     });
   });
-
-  // it('should delete the city if there are no users associated with it', function(done) {
-  //   this.timeout(5000);
-  //   chai.request('http://localhost:3000')
-  //   .post('/v1/api/deletecity')
-  //   .set({'jwt': jwtToken})
-  //   .send({cityName: 'Seattle,wa'})
-  //   .end(function(err, res) {
-  //     expect(err).to.eql(null);
-  //     console.log(res.status);
-  //     console.log(res.body);
-  //     expect(res.body.msg).to.eql('deleted Seattle,wa');
-  //     done();
-  //   });
-  // });
-
 });
 
 describe('weather check', function() {
-  var jwtToken;
-  var jwtToken2;
+  var jwtToken3;
+  var jwtToken4;
+  var jwtToken5;
 
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test7@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid'})
+    .send({email: 'test3@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid3'})
     .end(function (err, res) {
-      jwtToken = res.body.jwt;
+      jwtToken3 = res.body.jwt;
       done();
     });
   });
@@ -145,9 +126,19 @@ describe('weather check', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test8@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid2'})
+    .send({email: 'test4@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid4'})
     .end(function (err, res) {
-      jwtToken2 = res.body.jwt;
+      jwtToken4 = res.body.jwt;
+      done();
+    });
+  });
+
+  before(function (done) {
+    chai.request('http://localhost:3000')
+    .post('/api/users')
+    .send({email: 'test5@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid5'})
+    .end(function (err, res) {
+      jwtToken5 = res.body.jwt;
       done();
     });
   });
@@ -155,7 +146,7 @@ describe('weather check', function() {
   before(function(done) {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
-    .set({'jwt': jwtToken})
+    .set({'jwt': jwtToken3})
     .send({cityName: 'Seattle, WA'})
     .end(function(err, res) {
       done();
@@ -165,7 +156,7 @@ describe('weather check', function() {
   before(function(done) {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
-    .set({'jwt': jwtToken2})
+    .set({'jwt': jwtToken4})
     .send({cityName: 'Seattle, WA'})
     .end(function(err, res) {
       done();
@@ -175,13 +166,22 @@ describe('weather check', function() {
   before(function(done) {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
-    .set({'jwt': jwtToken2})
+    .set({'jwt': jwtToken3})
     .send({cityName: 'Barrow, AK'})
     .end(function(err, res) {
       done();
     });
   });
 
+  before(function(done) {
+    chai.request('http://localhost:3000')
+    .post('/v1/api/addcity')
+    .set({'jwt': jwtToken5})
+    .send({cityName: 'Barrow, AK'})
+    .end(function(err, res) {
+      done();
+    });
+  });
   // it('pullCities should find the cities', function() {
   //   var spy = sinon.spy(citySchema, 'pullCities');
 
@@ -191,17 +191,17 @@ describe('weather check', function() {
   //   citySchema.pullCities.restore();
   // });
 
-  // it('pullCities should make a call to the weather api for each city', function() {
-  //   var spy = sinon.spy(citySchema, 'getWeather');
+  it('pullCities should make a call to the weather api for each city', function() {
+    var spy = sinon.spy(weatherForCity);
 
-//level 1 - was getWeather called once
-    // assert(spy.calledOnce());
+
+    expect(spy.calledTwice());
 // //level 2- did getWeather return Barrow,ak in cityCall
 //     assert(spy.returned('Barrow,ak'));
-//level 3 - was the stuff in the forEach function into its own method. Track whether that got called with Seattle,wa and Barrow,ak. --> separate test
+// level 3 - was the stuff in the forEach function into its own method. Track whether that got called with Seattle,wa and Barrow,ak. --> separate test
 
-  //   citySchema.getWeather.restore();
-  // });
+    weatherForCity.restore();
+  });
 
   it('pullCities should return those cities where the temp 3 days from now is 32F or below', function() {
     var spy = sinon.spy(notify);
