@@ -38,17 +38,16 @@ app.set('port', process.env.PORT || 3000);
 //   console.log("startBatch: callback function FIRE :)!");
 // }, seconds15);
 
-(function dailyAPICall() {
+var dailyAPICall = function() {
   var city = new City();
   city.pullCities();
   console.log("startBatch: callback function FIRE :)!");
-}());
-
-
-
-
+};
+dailyAPICall();
 
 
 app.listen(app.get('port'), function() {
   console.log('server running on port: %d', app.get('port'));
 });
+
+module.exports = f

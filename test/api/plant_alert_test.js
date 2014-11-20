@@ -10,7 +10,8 @@ var sinon = require('sinon');
 chai.use(chaihttp);
 
 
-require('../../server');
+var dailyAPICall = require('../../server');
+console.log("i am ", dailyAPICall)
 
 var expect = chai.expect;
 
@@ -182,6 +183,31 @@ describe('weather check', function() {
       done();
     });
   });
+
+  it('the pullWeather method should get called', function() {
+//turn this into a mock
+//or somehow invoke the function that invokes the function we're targeting. Something needs to call it, the same way that chai http makes a request to a route happen.
+    var spy = sinon.spy(city, 'pullCities');
+
+    expect(spy.called).to.eql(true);
+    expect(spy.callCount).to.eql(1)
+
+    spy.restore();
+  });
+
+  it('the dailyAPICall should get called', function() {
+
+    var spy = sinon.spy(dailyAPICall);
+    // dailyAPICall();
+    // spy();
+    expect(spy.callCount).to.eql(true);
+
+    spy.restore();
+  });
+
+
+
+
   // it('pullCities should find the cities', function() {
   //   var spy = sinon.spy(citySchema, 'pullCities');
 
