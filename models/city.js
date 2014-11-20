@@ -31,6 +31,7 @@ citySchema.methods.pullCities = function(){
             var cityUrl = 'api.openweathermap.org/data/2.5/forecast/daily?q=' + city.cityName + '&cnt=3&units=imperial&APIID=20e5bcdd87db0f48d21c0e8d85d30048&mode=json';
             console.log('STARTING REQUEST FOR ' + city.cityName);
             request
+              .timeout(15000) //http://visionmedia.github.io/superagent/#get-requests
               .get(cityUrl)
               .end (function(err, cityData) {
                 // console.log(cityData);
