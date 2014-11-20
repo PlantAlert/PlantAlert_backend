@@ -17,11 +17,6 @@ var citySchema = mongoose.Schema({
 citySchema.methods.pullCities = function(){
   this.model('City').find({}, function (err, data) {
     if (err) return console.log('DB city get all city error.');
-    // var parsedData = JSON.parse(data.text);
-    // var cities = (data[0].cityName);
-    // console.log(data[0].cityName);
-
-    // var cityCall = [];
 
       data.forEach(function(city){
         if(city.users !== null){
@@ -45,12 +40,11 @@ citySchema.methods.pullCities = function(){
                 }
               });
           };
+        weatherForCity(city);
         }
-      weatherForCity(city);
       });
   });
 };
-
 
 
 module.exports = mongoose.model('City', citySchema);
