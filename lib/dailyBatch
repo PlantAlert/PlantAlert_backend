@@ -1,8 +1,0 @@
-module.exports = function(){
-
-
-console.log('This is the Test _FIRE off_ for the dailyBatch! :)');
-// TODO:  put the REAL daily batch code here.
-
-
-}
