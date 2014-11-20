@@ -31,7 +31,7 @@ describe('user crud', function() {
   it('should not let a user have a password without a number', function(done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test2@example.com', password: 'testtestT$', deviceID: 'teststringofdeviceid'})
+    .send({email: 'test2@example.com', password: 'testtestT$', deviceToken: 'teststringofdeviceToken'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.eql('invalid password');
@@ -49,7 +49,7 @@ describe('city crud', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test1@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid'})
+    .send({email: 'test1@example.com', password: 'Password123#', deviceToken: 'teststringofdeviceToken'})
     .end(function (err, res) {
       jwtToken = res.body.jwt;
       done();
@@ -59,14 +59,14 @@ describe('city crud', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test2@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid2'})
+    .send({email: 'test2@example.com', password: 'Password123#', deviceToken: 'teststringofdeviceToken'})
     .end(function (err, res) {
       jwtToken2 = res.body.jwt;
       done();
     });
   });
 
-    it('should add a new city, then add the user deviceID to that new city', function(done) {
+    it('should add a new city, then add the user deviceToken to that new city', function(done) {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
@@ -116,7 +116,7 @@ describe('weather check', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test3@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid3'})
+    .send({email: 'test3@example.com', password: 'Password123#', deviceToken: 'teststringofdeviceToken'})
     .end(function (err, res) {
       jwtToken3 = res.body.jwt;
       done();
@@ -126,7 +126,7 @@ describe('weather check', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test4@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid4'})
+    .send({email: 'test4@example.com', password: 'Password123#', deviceToken: 'teststringofdeviceToken4'})
     .end(function (err, res) {
       jwtToken4 = res.body.jwt;
       done();
@@ -136,7 +136,7 @@ describe('weather check', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test5@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid5'})
+    .send({email: 'test5@example.com', password: 'Password123#', deviceToken: 'teststringofdeviceToken5'})
     .end(function (err, res) {
       jwtToken5 = res.body.jwt;
       done();
