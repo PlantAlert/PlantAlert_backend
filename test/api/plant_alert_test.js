@@ -15,7 +15,6 @@ require('../../server');
 var expect = chai.expect;
 
 describe('user crud', function() {
-  var id;
   var jwtToken;
   it('should be able to create a new user', function(done) {
     chai.request('http://localhost:3000')
@@ -76,6 +75,7 @@ describe('city crud', function() {
       expect(err).to.eql(null);
       expect(res.body).to.have.property('_id');
       expect(res.body).to.have.property('cityName');
+      expect(res.body.cityName).to.eql('Seattle,wa');   // Tests cityNameConversion.js
       expect(res.body.users).to.not.eql([]);
       done();
     });
