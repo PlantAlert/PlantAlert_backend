@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 
     mongo_drop: {
       test: {
-      'uri': 'mongodb://localhost/notes_test',
+      'uri': 'mongodb://localhost/city_development',
       }
     }
 
@@ -27,3 +27,5 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['jshint', 'mongo_drop', 'simplemocha']);
   grunt.registerTask('default', ['test']);
 };
+
+  // grunt.registerTask('test', ['jshint', 'mongo_drop', 'simplemocha']);

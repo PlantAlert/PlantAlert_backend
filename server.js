@@ -7,24 +7,47 @@ var bodyparser = require('body-parser');
 var passport = require('passport');
 var app = express();
 
-mongoose.connect(process.env.MONGO_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/notes_development');
+var City = require("./models/city");
+
+mongoose.connect(process.env.MONGO_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/city_development');
 app.use(bodyparser.json());
-app.set('jwtSecret', process.env.JWT_SECRET || 'changethisordie');
+app.set('jwtSecret', process.env.JWT_SECRET || 'changethisoryourplantwillfreeze');
 
 app.use(passport.initialize());
 
 require('./lib/passport')(passport);
 var jwtauth = require('./lib/jwt_auth')(app.get('jwtSecret'));
 
-var notesRouter = express.Router();
-notesRouter.use(jwtauth);
+var citysRouter = express.Router();
+citysRouter.use(jwtauth);
 
 
 require('./routes/users_routes')(app, passport);
-require('./routes/notes_routes')(notesRouter);
-app.use('/v1', notesRouter);
+require('./routes/citys_routes')(citysRouter);
+app.use('/v1', citysRouter);
 
 app.set('port', process.env.PORT || 3000);
+
+
+
+// var seconds15 = 1000 * 10;
+// var oneDay = 1000 * 60 * 60 *12;
+// setInterval(function() {
+//   var city = new City();
+//   city.pullCities();
+//   console.log("startBatch: callback function FIRE :)!");
+// }, seconds15);
+
+(function KUH() {
+  var city = new City();
+  city.pullCities();
+  console.log("startBatch: callback function FIRE :)!");
+}());
+
+
+
+
+
 
 app.listen(app.get('port'), function() {
   console.log('server running on port: %d', app.get('port'));
