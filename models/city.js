@@ -16,44 +16,42 @@ var citySchema = mongoose.Schema({
 
 citySchema.methods.pullCities = function(){
   this.model('City').find({}, function (err, data) {
-    if (err) return console.log('DB city get all city error.'); console.log(data);
+    if (err) return console.log('DB city get all city error.');
     // var parsedData = JSON.parse(data.text);
     // var cities = (data[0].cityName);
     // console.log(data[0].cityName);
 
     // var cityCall = [];
-    data.forEach(function(city){
-      var weatherForCity = function(city) {
-        var tempParse;
-        var temp;
-        var cityUrl = 'api.openweathermap.org/data/2.5/forecast/daily?q=' + city.cityName + '&cnt=3&units=imperial&APIID=20e5bcdd87db0f48d21c0e8d85d30048&mode=json';
-        console.log('STARTING REQUEST FOR ' + city.cityName);
-        request
-          .get(cityUrl)
-          .end (function(err, cityData) {
-            console.log(cityData);
-            if (err) console.log('there was an error');
-            tempParse = JSON.parse(cityData.text);
-            temp = (tempParse.list[2].temp.night);
-            console.log(temp);
-            if (temp <= 32){
-              notify(city);
-              console.log("it's freezing in " + city.cityName);
-            }
-          });
-      };
+
+      data.forEach(function(city){
+        if(city.users !== null){
+          var weatherForCity = function(city) {
+            var tempParse;
+            var temp;
+            var cityUrl = 'api.openweathermap.org/data/2.5/forecast/daily?q=' + city.cityName + '&cnt=3&units=imperial&APIID=20e5bcdd87db0f48d21c0e8d85d30048&mode=json';
+            console.log('STARTING REQUEST FOR ' + city.cityName);
+            request
+              .get(cityUrl)
+              .end (function(err, cityData) {
+                // console.log(cityData);
+                if (err) console.log('there was an error');
+                tempParse = JSON.parse(cityData.text);
+                temp = (tempParse.list[2].temp.night);
+                console.log(temp);
+                if (temp <= 32){
+                  notify(city);
+                  // console.log(city);
+                  console.log("it's freezing in " + city.cityName);
+                }
+              });
+          };
+        }
       weatherForCity(city);
-    });
-    // console.log("outside     " + cityCall)
-    //   return cityCall;
+      });
   });
 };
 
-      //   console.log(temp ("1"))
-      // if (temp <= 32){
-      //   cityCall.push(city.users);
-      //   console.log(cityCall)
-      // }
+
 
 module.exports = mongoose.model('City', citySchema);
 
