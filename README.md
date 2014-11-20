@@ -1,6 +1,6 @@
-## PlantAlert
+## Plant Alert
 
-A mobile app that will keep your plants alive by letting you know when the weather may put them in danger.
+Keep those plants alive! Plant Alert gives you a warning three days before freezing temperatures are forecast, so you can get those plants covered and cozy. Select one city to track, or many; available for iOS.
 
 
 
