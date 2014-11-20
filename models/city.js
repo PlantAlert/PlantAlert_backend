@@ -28,7 +28,7 @@ citySchema.methods.pullCities = function(){
           var weatherForCity = function(city) {
             var tempParse;
             var temp;
-            var cityUrl = 'api.openweathermap.org/data/2.5/forecast/daily?q=' + city.cityName + '&cnt=3&units=imperial&APIID=20e5bcdd87db0f48d21c0e8d85d30048&mode=json';
+            var cityUrl = 'api.openweathermap.org/data/2.5/forecast/daily?q=' + city.cityName + '&cnt=3&units=imperial&APIID=' + process.env.ENVOPENWEATHER + '&mode=json';
             console.log('STARTING REQUEST FOR ' + city.cityName);
             request
               .get(cityUrl)
