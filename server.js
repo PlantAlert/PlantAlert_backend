@@ -38,7 +38,7 @@ app.set('port', process.env.PORT || 3000);
 //   console.log("startBatch: callback function FIRE :)!");
 // }, seconds15);
 
-(function KUH() {
+(function dailyAPICall() {
   var city = new City();
   city.pullCities();
   console.log("startBatch: callback function FIRE :)!");
