@@ -3,7 +3,7 @@
 
 //Many thanks to Charles Renwick for help with the testing code.
 
-process.env.MONGO_URL = 'mongodb://localhost/notes_test';
+process.env.MONGO_URL = 'mongodb://localhost/city_development';
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var sinon = require('sinon');
@@ -50,7 +50,11 @@ describe('city crud', function() {
   before(function (done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
+<<<<<<< HEAD
     .send({email: 'test7@example.com', password: 'Password123#', deviceID: 'teststringofdeviceid'})
+=======
+    .send({email: 'test77@example.com', password: 'Password2123#'})
+>>>>>>> a0ce9d5779de22f09d94caf9fedcf358a1e476cf
     .end(function (err, res) {
       jwtToken = res.body.jwt;
       done();
@@ -71,7 +75,7 @@ describe('city crud', function() {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
-    .send({cityName: 'Seattle,wa'})
+    .send({cityName: 'Barrow,ak'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body).to.have.property('_id');
