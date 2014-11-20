@@ -2,6 +2,7 @@
 'use strict';
 
 var City = require('../models/city');
+
 var cityNameConversion = require('../lib/cityNameConversion');
 
 module.exports = function(app) {
@@ -14,7 +15,7 @@ module.exports = function(app) {
 
       // if the city is in the collection, add the user to that city
       if (city) {
-        city.users.push(user.deviceID);
+        city.users.push(user.deviceToken);
         city.save(function(err, data) {
           if (err) {
             console.log(err);
@@ -28,7 +29,7 @@ module.exports = function(app) {
       else {
         var newCity = new City();
         newCity.cityName = formattedCityName;
-        newCity.users.push(user.deviceID);
+        newCity.users.push(user.deviceToken);
         newCity.save(function(err, data) {
           if (err) {
             return res.status(500).send('there was an error');
@@ -48,7 +49,7 @@ module.exports = function(app) {
       // remove the user's device ID from the city
       if (city) {
         for (var i = 0; i < city.users.length; i++) {
-          if (city.users[i] === user.deviceID) {
+          if (city.users[i] === user.deviceToken) {
             city.users.splice(i, 1);
           }
         }

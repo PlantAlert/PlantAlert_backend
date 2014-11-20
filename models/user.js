@@ -12,7 +12,7 @@ var userSchema = mongoose.Schema({
   },
   admin: false,
   phone: String,
-  deviceID: String,
+  deviceToken: String,
   cityName: String
 });
 
