@@ -28,8 +28,6 @@ app.use('/v1', citysRouter);
 
 app.set('port', process.env.PORT || 3000);
 
-
-
 // var seconds15 = 1000 * 10;
 // var oneDay = 1000 * 60 * 60 *12;
 // setInterval(function() {
@@ -38,16 +36,12 @@ app.set('port', process.env.PORT || 3000);
 //   console.log("startBatch: callback function FIRE :)!");
 // }, seconds15);
 
-var dailyAPICall = function() {
-  var city = new City();
-  city.pullCities();
-  console.log("startBatch: callback function FIRE :)!");
-};
-dailyAPICall();
+(function dailyAPICall() {
+var city = new City();
+city.pullCities();
+}());
 
 
 app.listen(app.get('port'), function() {
   console.log('server running on port: %d', app.get('port'));
 });
-
-module.exports = f

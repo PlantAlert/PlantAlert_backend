@@ -32,6 +32,7 @@ module.exports = function(app) {
         newCity.users.push(user.deviceToken);
         newCity.save(function(err, data) {
           if (err) {
+            console.log(err);
             return res.status(500).send('there was an error');
           }
           return res.status(200).json(data);
@@ -48,11 +49,12 @@ module.exports = function(app) {
 
       // remove the user's device ID from the city
       if (city) {
-        for (var i = 0; i < city.users.length; i++) {
+        for (var i = 0, len = city.users.length; i < len; i++) {
           if (city.users[i] === user.deviceToken) {
             city.users.splice(i, 1);
           }
         }
+
         city.save(function(err, data) {
           if (err) {
             console.log(err);
