@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "apn": "^1.6.2",
-    "apnagent": "1.0.x",
+    "apnagent": "^1.0.5",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.9.2",
     "express": "^4.10.1",
