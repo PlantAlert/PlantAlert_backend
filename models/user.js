@@ -12,7 +12,8 @@ var userSchema = mongoose.Schema({
   },
   admin: false,
   phone: String,
-  deviceID: String
+  deviceID: String,
+  cityName: String
 });
 
 userSchema.methods.generateHash = function(password) {

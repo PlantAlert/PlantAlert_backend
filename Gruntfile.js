@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 
     mongo_drop: {
       test: {
-      'uri': 'mongodb://localhost/notes_test',
+      'uri': 'mongodb://localhost/city_development',
       }
     }
 
