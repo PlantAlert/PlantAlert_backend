@@ -26,7 +26,7 @@ citySchema.methods.pullCities = function(){
           var cityUrl = 'api.openweathermap.org/data/2.5/forecast/daily?q=' + city.cityName + '&cnt=3&units=imperial&APIID=' + process.env.ENVOPENWEATHER + '&mode=json';
 
           request     // 1 ms WILL error out!
-            .get(cityUrl).timeout(15000).end(function(cityData) {
+            .get(cityUrl).timeout(1000 * 20).end(function(cityData) {
               tempParse = JSON.parse(cityData.text);
               temp = (tempParse.list[2].temp.night);
               if (temp <= 32) notify(city);
