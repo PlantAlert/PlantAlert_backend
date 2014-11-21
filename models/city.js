@@ -4,8 +4,8 @@
 var mongoose = require('mongoose');
 var request = require('superagent');
 var notify = require('../lib/notify');
-var moment = require('moment')
-var zone = require('moment-timezone')
+var moment = require('moment');
+var zone = require('moment-timezone');
 
 var citySchema = mongoose.Schema({
   cityName: String,
@@ -36,7 +36,7 @@ citySchema.methods.pullCities = function(done){
 
               tempParse = JSON.parse(cityData.text);
               city.temp = (tempParse.list[2].temp.night);
-              var dates = (tempParse.list[2].dt)
+              var dates = (tempParse.list[2].dt);
               city.date = moment.utc().add(2, 'days').zone("-0800").format('dddd, MMMM Do YYYY, hA');
               if (city.temp <= 32) {
                 self.notifyFreezing(city);
