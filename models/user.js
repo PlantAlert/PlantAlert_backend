@@ -11,7 +11,6 @@ var userSchema = mongoose.Schema({
     password: String,
   },
   admin: false,
-  phone: String,
   deviceToken: String
 });
 
