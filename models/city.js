@@ -12,8 +12,10 @@ var citySchema = mongoose.Schema({
   users: []
 });
 
-citySchema.methods.pullCities = function(){
+citySchema.methods.notifyFreezing = notify;
 
+citySchema.methods.pullCities = function(done){
+  var self = this;
   this.model('City').find({}, function(err, data) {
     if (err) return console.log('DB city get all city error.');
 
@@ -27,17 +29,23 @@ citySchema.methods.pullCities = function(){
           var cityUrl = 'api.openweathermap.org/data/2.5/forecast/daily?q=' + city.cityName + '&cnt=3&units=imperial&APIID=' + process.env.ENVOPENWEATHER + '&mode=json';
 
           request
-            .timeout(15000)
+            // .timeout(15000)
             .get(cityUrl)
             .end (function(err, cityData) {
               if (err) console.log('there was an error');
               tempParse = JSON.parse(cityData.text);
               temp = (tempParse.list[2].temp.night);
-              if (temp <= 32) notify(city);
+              if (temp <= 32) {
+                self.notifyFreezing(city);
+                done();
+                // notify(city);
+                // console.log("hi");
+              }
+
             });
         };
 
-        weatherForCity(city);
+        weatherForCity(city, done);
       }
     });
   });
