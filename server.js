@@ -28,14 +28,14 @@ app.use('/v1', citysRouter);
 
 app.set('port', process.env.PORT || 3000);
 
-// // var minutes2 = 1000 * 60 * 2;
-// // var seconds15 = 1000 * 15;
-// // var oneDay = 1000 * 60 * 60 *12;
-// setInterval( function dailyAPICall() {
-//     console.log('startBatch: callback function FIRE SPAMMING 15seconds :)!');
-//     var city = new City();
-//     city.pullCities();
-// }, minutes2);
+var minutes2 = 1000 * 60 * 2;
+var seconds15 = 1000 * 5;
+var oneDay = 1000 * 60 * 60 *12;
+setInterval( function dailyAPICall() {
+    console.log('startBatch: callback function FIRE SPAMMING 15seconds :)!');
+    var city = new City();
+    city.pullCities();
+}, seconds15);
 
 
 app.listen(app.get('port'), function() {
