@@ -1,19 +1,14 @@
 /*jshint node: true */
 'use strict';
 
-var express = require('express');
 var mongoose = require('mongoose');
 var request = require('superagent');
-var bodyParser = require('body-parser');
 var notify = require('../lib/notify');
 
 var citySchema = mongoose.Schema({
   cityName: String,
   users: []
 });
-
-
-
 
 
 citySchema.methods.pullCities = function(){
@@ -30,23 +25,19 @@ citySchema.methods.pullCities = function(){
           var temp;
           var cityUrl = 'api.openweathermap.org/data/2.5/forecast/daily?q=' + city.cityName + '&cnt=3&units=imperial&APIID=' + process.env.ENVOPENWEATHER + '&mode=json';
 
-          request
-            //.timeout(15000)
-            .get(cityUrl)
-            .end (function(err, cityData) {
-              if (err) console.log('there was an error');
+          request     // 1 ms WILL error out!
+            .get(cityUrl).timeout(15000).end(function(cityData) {
               tempParse = JSON.parse(cityData.text);
               temp = (tempParse.list[2].temp.night);
               if (temp <= 32) notify(city);
+            }).on('error', function(err) {
+                console.log('Weather API req in pullCities TIMEOUT: ms was:' + err.timeout);
             });
         };
-
         weatherForCity(city);
       }
     });
   });
 };
 
-
 module.exports = mongoose.model('City', citySchema);
-
