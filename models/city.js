@@ -4,10 +4,14 @@
 var mongoose = require('mongoose');
 var request = require('superagent');
 var notify = require('../lib/notify');
+var moment = require('moment')
+var zone = require('moment-timezone')
 
 var citySchema = mongoose.Schema({
   cityName: String,
-  users: []
+  users: [],
+  temp: Number,
+  date: String
 });
 
 
@@ -31,11 +35,13 @@ citySchema.methods.pullCities = function(done){
             .get(cityUrl).timeout(1000 * 20).end(function(cityData) {
 
               tempParse = JSON.parse(cityData.text);
-              temp = (tempParse.list[2].temp.night);
-              if (temp <= 32) {
+              city.temp = (tempParse.list[2].temp.night);
+              var dates = (tempParse.list[2].dt)
+              city.date = moment.utc().add(2, 'days').zone("-0800").format('dddd, MMMM Do YYYY, hA');
+              if (city.temp <= 32) {
                 self.notifyFreezing(city);
-                done();
-              };
+                // done();
+              }
             }).on('error', function(err) {
                 console.log('Weather API req in pullCities TIMEOUT: ms was:' + err.timeout);
             });
