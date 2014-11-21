@@ -11,7 +11,7 @@ module.exports = function(app) {
     var user = req.user;
     var formattedCityName = cityNameConversion(req.body.cityName);
 
-    City.findOne({'cityName': formattedCityName}, function(err, city){
+    City.findOne({'cityName': formattedCityName}, function(err, city) {
 
       // if the city is in the collection, add the user to that city
       if (city) {
@@ -45,7 +45,7 @@ module.exports = function(app) {
     var user = req.user;
     var formattedCityName = cityNameConversion(req.body.cityName);
 
-    City.findOne({'cityName': formattedCityName}, function(err, city){
+    City.findOne({'cityName': formattedCityName}, function(err, city) {
 
       // remove the user's device ID from the city
       if (city) {

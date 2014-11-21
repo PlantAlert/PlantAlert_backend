@@ -10,12 +10,12 @@ module.exports = function(grunt) {
       options: {
         node: true
       },
-      src: ['models/**/*.js', 'server.js', 'routes/**/*.js']
+      src: ['models/**/*.js', 'server.js', 'routes/**/*.js', 'lib/**/*.js']
     },
 
     jscs: {
       all: {
-        src: "lib/*.js",
+        src: ["lib/*.js", "models/**/*.js", "server.js", "routes/**/*.js", "test/**/*.js"],
         options: {
             config: ".jscsrc",
             requireCurlyBraces: [ "if" ]

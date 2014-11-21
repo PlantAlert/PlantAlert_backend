@@ -9,7 +9,6 @@ var chaihttp = require('chai-http');
 var sinon = require('sinon');
 chai.use(chaihttp);
 
-
 require('../../server');
 var City = require('../../models/city');
 var notify = require('../../lib/notify');
@@ -43,32 +42,31 @@ describe('user crud', function() {
 
 });
 
-
 describe('city crud', function() {
   var jwtToken;
   var jwtToken2;
 
-  before(function (done) {
+  before(function(done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
     .send({email: 'test1@example.com', password: 'Password123#', deviceToken: 'teststringofdeviceToken'})
-    .end(function (err, res) {
+    .end(function(err, res) {
       jwtToken = res.body.jwt;
       done();
     });
   });
 
-  before(function (done) {
+  before(function(done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
     .send({email: 'test2@example.com', password: 'Password123#', deviceToken: 'teststringofdeviceToken'})
-    .end(function (err, res) {
+    .end(function(err, res) {
       jwtToken2 = res.body.jwt;
       done();
     });
   });
 
-    it('should add a new city, then add the user deviceToken to that new city', function(done) {
+  it('should add a new city, then add the user deviceToken to that new city', function(done) {
     chai.request('http://localhost:3000')
     .post('/v1/api/addcity')
     .set({'jwt': jwtToken})
@@ -118,31 +116,31 @@ describe('weather check', function() {
   var city;
   var mock;
 
-  before(function (done) {
+  before(function(done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
     .send({email: 'test3@example.com', password: 'Password123#', deviceToken: 'teststringofdeviceToken3'})
-    .end(function (err, res) {
+    .end(function(err, res) {
       jwtToken3 = res.body.jwt;
       done();
     });
   });
 
-  before(function (done) {
+  before(function(done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
     .send({email: 'test4@example.com', password: 'Password123#', deviceToken: 'teststringofdeviceToken4'})
-    .end(function (err, res) {
+    .end(function(err, res) {
       jwtToken4 = res.body.jwt;
       done();
     });
   });
 
-  before(function (done) {
+  before(function(done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
     .send({email: 'test5@example.com', password: 'Password123#', deviceToken: 'teststringofdeviceToken5'})
-    .end(function (err, res) {
+    .end(function(err, res) {
       jwtToken5 = res.body.jwt;
       done();
     });
@@ -191,7 +189,7 @@ describe('weather check', function() {
   before(function() {
     city = new City();
     mock = sinon.mock(city);
-  })
+  });
 
   it('the notify function should get called once for Barrow,ak by the pullCities method', function(done) {
     mock.expects('notifyFreezing').once();
@@ -205,58 +203,4 @@ describe('weather check', function() {
     mock.verify();
     mock.restore();
   });
-
-   // var city = new City();
-    // var spy = sinon.spy(notify);
-
-    // city.pullCities();
-
-    // expect(spy.called).to.eql(true);
-    // expect(spy.callCount).to.eql(1)
-
-    // spy.restore();
-
-  // it('should call dailyAPICall once a day', function() {
-
-  //   var clock = sinon.useFakeTimers();
-
-  //   //put a wrapper function around the setTimeout function
-  //   //call that wrapper function
-  //   //fast-forward one day
-  //   //expect dailyApiCall to be called
-
-  //   clock.tick(86400000);
-  //   mock.expects('notify').once()
-  // });
 });
-
-
-
-  // it('pullCities should find the cities', function() {
-  //   var spy = sinon.spy(citySchema, 'pullCities');
-
-  //   sinon.assert(spy.returned('Seattle,wa'));
-  //   sinon.assert(spy.returned('Barrow,ak'));
-
-  //   citySchema.pullCities.restore();
-  // });
-
-//   it('pullCities should make a call to the weather api for each city', function() {
-//     var spy = sinon.spy(weatherForCity);
-
-
-//     expect(spy.calledTwice());
-// // //level 2- did getWeather return Barrow,ak in cityCall
-// //     assert(spy.returned('Barrow,ak'));
-// // level 3 - was the stuff in the forEach function into its own method. Track whether that got called with Seattle,wa and Barrow,ak. --> separate test
-
-//     weatherForCity.restore();
-//   });
-
-//   it('pullCities should return those cities where the temp 3 days from now is 32F or below', function() {
-//     var spy = sinon.spy(notify);
-//     expect(spy.calledOnce());
-//     // expect(spy.returned('Barrow,ak'));
-//     notify.restore();
-//   });
-// });
