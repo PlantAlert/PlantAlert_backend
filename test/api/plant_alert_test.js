@@ -30,10 +30,10 @@ describe('user crud', function() {
     });
   });
 
-  it('should not let a user have a password without a number', function(done) {
+  it('should not let a user have a password less than 8 characters long', function(done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'test2@example.com', password: 'testtestT$', deviceToken: 'teststringofdeviceToken'})
+    .send({email: 'test2@example.com', password: 'testnow', deviceToken: 'teststringofdeviceToken'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.eql('invalid password');
