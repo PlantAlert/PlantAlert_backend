@@ -10,17 +10,18 @@ var citySchema = mongoose.Schema({
   users: []
 });
 
-
 citySchema.methods.notifyFreezing = notify;
 
-citySchema.methods.pullCities = function(done){
-  var self = this;
+citySchema.methods.pullCities = function(done) {
+  var _this = this;
   this.model('City').find({}, function(err, data) {
-    if (err) return console.log('DB city get all city error.');
+    if (err) {
+      return console.log('DB city get all city error.');
+    }
 
     data.forEach(function(city) {
 
-      if(city.users !== null) {
+      if (city.users !== null) {
 
         var weatherForCity = function(city) {
           var tempParse;
@@ -33,11 +34,11 @@ citySchema.methods.pullCities = function(done){
               tempParse = JSON.parse(cityData.text);
               temp = (tempParse.list[2].temp.night);
               if (temp <= 32) {
-                self.notifyFreezing(city);
+                _this.notifyFreezing(city);
                 done();
               }
             }).on('error', function(err) {
-                console.log('Weather API req in pullCities TIMEOUT: ms was:' + err.timeout);
+              console.log('Weather API req in pullCities TIMEOUT: ms was:' + err.timeout);
             });
         };
         weatherForCity(city);
