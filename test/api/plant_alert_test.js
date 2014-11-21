@@ -111,6 +111,7 @@ describe('city crud', function() {
 });
 
 describe('weather check', function() {
+  this.timeout(5000);
   var jwtToken3;
   var jwtToken4;
   var jwtToken5;
