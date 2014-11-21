@@ -40,7 +40,8 @@ citySchema.methods.pullCities = function(done){
               city.date = moment.utc().add(2, 'days').zone("-0800").format('dddd, MMMM Do YYYY, hA');
               if (city.temp <= 32) {
                 self.notifyFreezing(city);
-                // done();
+                done();
+
               }
             }).on('error', function(err) {
                 console.log('Weather API req in pullCities TIMEOUT: ms was:' + err.timeout);

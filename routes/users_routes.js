@@ -16,8 +16,7 @@ module.exports = function (app, passport) {
 
       //check to make sure their password only has letters, numbers, and special characters, and is 8 characters or longer
       if (req.body.password == req.body.email) return res.status(500).send('password and user cannot be the same');
-      var passwordTest = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20}/;
-      if (!passwordTest.test(req.body.password)) return res.status(500).send('invalid password');
+      if (req.body.password.length < 8) return res.status(500).send('invalid password');
 
       //if their password meets the above criteria, create a new user and return a JWT
       var newUser = new User();
