@@ -35,7 +35,7 @@ citySchema.methods.pullCities = function(done){
               if (temp <= 32) {
                 self.notifyFreezing(city);
                 done();
-              };
+              }
             }).on('error', function(err) {
                 console.log('Weather API req in pullCities TIMEOUT: ms was:' + err.timeout);
             });
