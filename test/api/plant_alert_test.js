@@ -195,7 +195,6 @@ describe('weather check', function() {
     city.pullCities(function() {
       done();
     });
-
   });
 
   after(function() {
