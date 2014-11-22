@@ -18,7 +18,7 @@ module.exports = function(app, passport) {
         return res.status(500).send('cannot create that user');
       }
 
-      //check to make sure their password only has letters, numbers, and special characters, and is 8 characters or longer
+      //check to make sure their password is 8 characters or longer, and not the same as their email
       if (req.body.password == req.body.email) {
         return res.status(500).send('password and user cannot be the same');
       }

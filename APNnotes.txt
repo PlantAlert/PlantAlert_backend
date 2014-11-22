@@ -14,3 +14,13 @@ should occasional establish to download a list of devices which are no longer ac
 Module handles this too!
 
 
+  Feedback ~= How to unsubscribe users from notifications
+
+  var feedback = new apn.Feedback(options);
+  feedback.on("feedback", function(devices) {
+  devices.forEach(function(item) {
+  Do something with item.device and item.time;
+
+ TODO: ? Remove the user from the city. ? or done in deleteUser?
+
+

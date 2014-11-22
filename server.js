@@ -27,14 +27,11 @@ app.use('/v1', citysRouter);
 
 app.set('port', process.env.PORT || 3000);
 
-var minutes2 = 1000 * 60 * 2;
-// var seconds15 = 1000 * 15;
-// var oneDay = 1000 * 60 * 60 *12;
+var oneDay = 1000 * 60 * 60 * 12;
 setInterval(function dailyAPICall() {
-  console.log('startBatch: callback function FIRE ALERTS 15 seconds :)!');
   var city = new City();
   city.pullCities();
-}, minutes2);
+}, oneDay);
 
 app.listen(app.get('port'), function() {
   console.log('server running on port: %d', app.get('port'));
