@@ -1,8 +1,6 @@
 /*jshint node: true */
 'use strict';
 
-//Many thanks to Charles Renwick for help with the testing code.
-
 process.env.MONGO_URL = 'mongodb://localhost/city_development';
 var chai = require('chai');
 var chaihttp = require('chai-http');
@@ -39,7 +37,6 @@ describe('user crud', function() {
       done();
     });
   });
-
 });
 
 describe('city crud', function() {
@@ -75,7 +72,8 @@ describe('city crud', function() {
       expect(err).to.eql(null);
       expect(res.body).to.have.property('_id');
       expect(res.body).to.have.property('cityName');
-      expect(res.body.cityName).to.eql('Kona,hi');   // Tests cityNameConversion.js
+      // Test cityNameConversion.js:
+      expect(res.body.cityName).to.eql('Kona,hi');
       expect(res.body.users).to.not.eql([]);
       done();
     });
@@ -109,7 +107,7 @@ describe('city crud', function() {
 });
 
 describe('weather check', function() {
-  this.timeout(15000);
+  this.timeout(5000);
   var jwtToken3;
   var jwtToken4;
   var jwtToken5;
@@ -191,7 +189,8 @@ describe('weather check', function() {
     mock = sinon.mock(city);
   });
 
-  it('the notify function should get called once for Barrow,ak by the pullCities method', function(done) {
+  //this will call Barrow from the test database
+  it('the notify function should get called once by the pullCities method', function(done) {
     mock.expects('notifyFreezing').once();
     city.pullCities(function() {
       done();
