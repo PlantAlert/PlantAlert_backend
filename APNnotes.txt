@@ -1,0 +1,26 @@
+Apple Push Notification (APN) service.
+
+connecting to Apple's unique streaming api,
+sending several types of notifications and
+listening to the unsubscribe feedback service.
+
+1. Gateway Component:
+should established to send messages for Apple to process and then forward on to devices.
+The Node.js module:  ______________________ []
+
+
+2. Feedback Component:
+should occasional establish to download a list of devices which are no longer accepting notifications for a specific applications.
+Module handles this too!
+
+
+  Feedback ~= How to unsubscribe users from notifications
+
+  var feedback = new apn.Feedback(options);
+  feedback.on("feedback", function(devices) {
+  devices.forEach(function(item) {
+  Do something with item.device and item.time;
+
+ TODO: ? Remove the user from the city. ? or done in deleteUser?
+
+
